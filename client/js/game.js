@@ -1,7 +1,7 @@
 // Game state and networking
 class Game {
     constructor() {
-        this.client = new Colyseus.Client('ws://localhost:2567');
+        this.client = new Colyseus.Client('ws://192.168.0.15:2567');
         this.room = null;
         this.currentPlayer = null;
         this.gameState = null;

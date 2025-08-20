@@ -1,11 +1,34 @@
 import { Room, Client } from "colyseus";
 import { GameState, Player } from "../schemas/GameSchema";
 
+const LETTERS = "0123456789";
+
 export class GameRoom extends Room<GameState> {
   maxClients = 4;
   private turnTimer: any = null;
+  LOBBY_CHANNEL = "$mylobby"
 
-  onCreate(options: any) {
+  generateRoomIdSingle(): string {
+        let result = '';
+        for (var i = 0; i < 4; i++) {
+            result += LETTERS.charAt(Math.floor(Math.random() * LETTERS.length));
+        }
+        return result;
+    }
+
+    async generateRoomId(): Promise<string> {
+        const currentIds = await this.presence.smembers(this.LOBBY_CHANNEL);
+        let id;
+        do {
+            id = this.generateRoomIdSingle();
+        } while (currentIds.includes(id));
+ 
+        await this.presence.sadd(this.LOBBY_CHANNEL, id);
+        return id;
+    }
+
+  async onCreate(options: any) {
+    this.roomId = await this.generateRoomId();
     this.setState(new GameState());
     
     console.log("GameRoom created!", options);
@@ -76,7 +99,8 @@ export class GameRoom extends Room<GameState> {
     }
   }
 
-  onDispose() {
+  async onDispose() {
+    this.presence.srem(this.LOBBY_CHANNEL, this.roomId);
     console.log("room", this.roomId, "disposing...");
   }
 

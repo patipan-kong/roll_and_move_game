@@ -143,7 +143,7 @@
     margin-bottom: 1rem;
 }
 
-.dice {
+.diceA {
     width: 60px;
     height: 60px;
     background: white;
@@ -159,7 +159,7 @@
     transition: all 0.3s ease;
 }
 
-.dice.rolling {
+.diceA.rolling {
     animation: roll 1s ease-in-out;
 }
 
