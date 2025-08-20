@@ -1,0 +1,251 @@
+/* Game Board Styles */
+.board-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    flex: 1;
+}
+
+.game-board {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    background: #f8f9fa;
+    border: 4px solid #2c3e50;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+
+/* Board Squares */
+.board-square {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #34495e;
+    background: #ecf0f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #2c3e50;
+    transition: all 0.3s ease;
+}
+
+.board-square:hover {
+    background: #d5dbdb;
+    transform: scale(1.05);
+    z-index: 10;
+}
+
+/* Special squares */
+.board-square.start {
+    background: #27ae60;
+    color: white;
+    border-color: #229954;
+}
+
+.board-square.finish {
+    background: #f39c12;
+    color: white;
+    border-color: #d68910;
+    position: relative;
+}
+
+.board-square.finish::after {
+    content: "🏆";
+    position: absolute;
+    font-size: 1.5rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Player tokens on squares */
+.player-token {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+    z-index: 5;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.player-token.warrior {
+    background: #e74c3c;
+}
+
+.player-token.mage {
+    background: #9b59b6;
+}
+
+.player-token.rogue {
+    background: #34495e;
+}
+
+.player-token.archer {
+    background: #27ae60;
+}
+
+.player-token.current-turn {
+    animation: pulse 2s infinite;
+    box-shadow: 0 0 20px rgba(52, 152, 219, 0.6);
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Multiple players on same square */
+.player-token.offset-1 {
+    top: -2px;
+    left: -2px;
+}
+
+.player-token.offset-2 {
+    top: -2px;
+    right: -2px;
+}
+
+.player-token.offset-3 {
+    bottom: -2px;
+    left: -2px;
+}
+
+.player-token.offset-4 {
+    bottom: -2px;
+    right: -2px;
+}
+
+/* Dice Styles */
+.dice-container {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.dice {
+    width: 60px;
+    height: 60px;
+    background: white;
+    border: 3px solid #2c3e50;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #2c3e50;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.dice.rolling {
+    animation: roll 1s ease-in-out;
+}
+
+@keyframes roll {
+    0%, 100% { 
+        transform: rotate(0deg) scale(1);
+    }
+    25% { 
+        transform: rotate(90deg) scale(1.1);
+    }
+    50% { 
+        transform: rotate(180deg) scale(1.2);
+    }
+    75% { 
+        transform: rotate(270deg) scale(1.1);
+    }
+}
+
+/* Dice face dots */
+.dice-face {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 2px;
+    padding: 4px;
+}
+
+.dice-dot {
+    background: #2c3e50;
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+}
+
+/* Board square positioning for spiral layout */
+/* This will be handled by JavaScript for dynamic positioning */
+
+/* Responsive board */
+@media (max-width: 768px) {
+    .game-board {
+        width: 350px;
+        height: 350px;
+    }
+    
+    .board-square {
+        width: 35px;
+        height: 35px;
+        font-size: 0.7rem;
+    }
+    
+    .player-token {
+        width: 16px;
+        height: 16px;
+        font-size: 0.6rem;
+    }
+    
+    .dice {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-board {
+        width: 280px;
+        height: 280px;
+    }
+    
+    .board-square {
+        width: 28px;
+        height: 28px;
+        font-size: 0.6rem;
+    }
+    
+    .player-token {
+        width: 14px;
+        height: 14px;
+        font-size: 0.5rem;
+    }
+    
+    .dice {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+}

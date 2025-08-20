@@ -1,0 +1,457 @@
+/* UI Component Styles */
+
+/* Main Menu */
+.menu-container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    text-align: center;
+    max-width: 600px;
+    width: 90%;
+}
+
+.player-setup {
+    margin-bottom: 2rem;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+/* Character Selection */
+.character-selection {
+    margin-bottom: 2rem;
+}
+
+.character-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.character-card {
+    background: #f8f9fa;
+    border: 3px solid #e9ecef;
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.character-card:hover {
+    background: #e9ecef;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.character-card.selected {
+    border-color: #3498db;
+    background: #ebf3fd;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.3);
+}
+
+.character-icon {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.character-name {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.game-mode-selection {
+    margin-top: 2rem;
+}
+
+.game-mode-selection .btn {
+    margin: 0.5rem;
+    min-width: 150px;
+}
+
+/* Multiplayer Lobby */
+.lobby-container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+}
+
+.lobby-options {
+    margin-bottom: 2rem;
+}
+
+.lobby-options .btn {
+    margin: 0.5rem;
+    min-width: 140px;
+}
+
+.join-game {
+    display: flex;
+    gap: 0.5rem;
+    margin: 1rem 0;
+    align-items: center;
+}
+
+.join-game input {
+    flex: 1;
+}
+
+.room-info {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 1rem;
+}
+
+.players-list {
+    margin: 1rem 0;
+}
+
+.player-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    background: white;
+    border-radius: 8px;
+    border: 2px solid #e9ecef;
+}
+
+.player-item.ready {
+    border-color: #27ae60;
+    background: #f0fff4;
+}
+
+.player-character {
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+}
+
+.player-name {
+    font-weight: 600;
+    flex: 1;
+    text-align: left;
+}
+
+.player-status {
+    font-size: 0.8rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 12px;
+    background: #e9ecef;
+    color: #6c757d;
+}
+
+.player-status.ready {
+    background: #27ae60;
+    color: white;
+}
+
+/* Game Screen */
+.game-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 1fr;
+    height: 100vh;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.game-info {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    height: fit-content;
+}
+
+.current-player {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.current-player h3 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.turn-timer {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #e74c3c;
+}
+
+.players-status {
+    margin-top: 1rem;
+}
+
+.player-status-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #e9ecef;
+}
+
+.player-status-item.current {
+    border-left-color: #3498db;
+    background: #ebf3fd;
+}
+
+.player-status-character {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+
+.player-status-info {
+    flex: 1;
+}
+
+.player-status-name {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.player-status-position {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+/* Game Controls */
+.game-controls {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+}
+
+.dice-section {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #e9ecef;
+}
+
+/* Game Log */
+.game-log {
+    margin-bottom: 2rem;
+    flex: 1;
+}
+
+.log-container {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1rem;
+    max-height: 200px;
+    overflow-y: auto;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.log-entry {
+    margin-bottom: 0.5rem;
+    padding: 0.25rem;
+    border-radius: 4px;
+}
+
+.log-entry.dice {
+    background: #e3f2fd;
+    color: #1976d2;
+}
+
+.log-entry.move {
+    background: #f3e5f5;
+    color: #7b1fa2;
+}
+
+.log-entry.win {
+    background: #e8f5e8;
+    color: #2e7d32;
+    font-weight: bold;
+}
+
+/* Chat Section */
+.chat-section {
+    border-top: 2px solid #e9ecef;
+    padding-top: 1rem;
+}
+
+.chat-messages {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1rem;
+    max-height: 150px;
+    overflow-y: auto;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.chat-message {
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+}
+
+.chat-player {
+    font-weight: 600;
+    color: #3498db;
+}
+
+.chat-text {
+    color: #2c3e50;
+}
+
+.chat-input {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.chat-input button {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+/* Tutorial Screen */
+.tutorial-container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    max-width: 700px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.tutorial-content {
+    text-align: left;
+    margin-bottom: 2rem;
+}
+
+.tutorial-content section {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #3498db;
+}
+
+.tutorial-content h3 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.tutorial-content ul, 
+.tutorial-content ol {
+    margin-left: 1rem;
+    margin-top: 0.5rem;
+}
+
+.tutorial-content li {
+    margin-bottom: 0.25rem;
+    line-height: 1.4;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .game-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto 1fr;
+        gap: 0.5rem;
+        padding: 0.5rem;
+    }
+    
+    .game-info,
+    .game-controls {
+        padding: 1rem;
+    }
+    
+    .character-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .menu-container,
+    .lobby-container,
+    .tutorial-container {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+    
+    .character-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+    
+    .character-icon {
+        font-size: 2rem;
+    }
+    
+    .join-game {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .game-controls {
+        padding: 1rem;
+    }
+    
+    .log-container,
+    .chat-messages {
+        max-height: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .menu-container,
+    .lobby-container {
+        padding: 1rem;
+    }
+    
+    .character-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .game-mode-selection .btn {
+        min-width: auto;
+        width: 100%;
+        margin: 0.25rem 0;
+    }
+    
+    .lobby-options .btn {
+        min-width: auto;
+        width: 100%;
+    }
+}
