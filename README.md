@@ -20,7 +20,6 @@ A multiplayer board game built with Colyseus and HTML5
 ## 🌟 Technology Stack
 
 ### Frontend
-- **HTML5**: 
 - **Colyseus.js**: Real-time multiplayer client for seamless networking
 - **HTML5/CSS3**: Responsive design with modern UI/UX
 - **JavaScript (ES6+)**: Modern vanilla JavaScript with async/await
@@ -77,7 +76,13 @@ A multiplayer board game built with Colyseus and HTML5
    ```
    http://localhost:3000
    ```
-
+4. **Change server url**
+   ```
+   from
+   const currentHostname = 'roll-and-move-game-server.onrender.com';
+   to
+   const currentHostname = location.hostname;      
+   ```
 ## 🎮 How to Play
 
 ### Game Setup
