@@ -5,6 +5,7 @@ import cors from "cors";
 import { GameRoom } from "./rooms/GameRoom";
 
 const port = Number(process.env.PORT || 2567);
+const host = process.env.HOST || "localhost";
 const app = express();
 
 // Enable CORS for all routes
@@ -30,5 +31,5 @@ app.get('/health', (req, res) => {
 });
 
 gameServer.listen(port);
-console.log(`🎮 Roll and Move Game Server is running on http://localhost:${port}`);
-console.log(`📊 Monitor: http://localhost:${port}/colyseus`);
+console.log(`🎮 Roll and Move Game Server is running on http://${host}:${port}`);
+console.log(`📊 Monitor: http://${host}:${port}/colyseus`);
