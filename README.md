@@ -1,6 +1,9 @@
 # 🎲 Roll and Move Game
 A multiplayer board game built with Colyseus and HTML5
 
+## Play Demo 
+- https://roll-and-move-game.onrender.com
+
 ## 🌟 Features
 - **Character Selection**: Choose from 4 unique characters (Warrior ⚔️, Mage 🧙‍♂️, Rogue 🗡️, Archer 🏹)
 - **Multiple Game Modes**: 
