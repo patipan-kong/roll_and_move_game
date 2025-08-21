@@ -217,10 +217,11 @@
     <script src="https://unpkg.com/colyseus.js@^0.14.0/dist/colyseus.js"></script>
     <script src="js/game.js"></script>
     <script>
-        // Global game instance
         // const currentHostname = location.hostname;
-        const currentHostname = 'roll-and-move-game-server.onrender.com';
-        const game = new Game(`ws://${currentHostname}:2567`);
+        // const url = `ws://${currentHostname}:2567`;
+        const currentHostname = '';
+        const url = `https://roll-and-move-game-serv.onrender.com`;
+        const game = new Game(url);
     </script>
     <script src="js/ui.js"></script>
     <script src="js/board.js"></script>

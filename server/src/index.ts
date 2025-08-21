@@ -3,6 +3,7 @@ import { createServer } from "http";
 import express from "express";
 import cors from "cors";
 import { GameRoom } from "./rooms/GameRoom";
+require("dotenv").config();
 
 const port = Number(process.env.PORT || 2567);
 const host = process.env.HOST || "localhost";
