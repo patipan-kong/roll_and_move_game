@@ -76,12 +76,16 @@ A multiplayer board game built with Colyseus and HTML5
    ```
    http://localhost:3000
    ```
-4. **Change server url**
+4. **Change server url, If want to use your own server**
    ```
    from
-   const currentHostname = 'roll-and-move-game-server.onrender.com';
+   // const currentHostname = location.hostname;
+   // const url = `ws://${currentHostname}:2567`;        
+   const url = `https://roll-and-move-game-serv.onrender.com`;
    to
-   const currentHostname = location.hostname;      
+   const currentHostname = location.hostname;
+   const url = `ws://${currentHostname}:2567`;        
+   // const url = `https://roll-and-move-game-serv.onrender.com`;
    ```
 ## 🎮 How to Play
 
