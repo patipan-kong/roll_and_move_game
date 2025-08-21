@@ -83,9 +83,9 @@
         <div class="game-container">
             <!-- Game Info Panel -->
             <div class="game-info">
-                <div class="current-player">
-                    <h3>Current Turn: <span id="currentPlayerName">-</span></h3>
-                    <div class="turn-timer">Time left: <span id="turnTimer">30</span>s</div>
+                <div class="race-status">
+                    <h3>🏁 Real-Time Race</h3>
+                    <div class="race-info">Everyone can roll dice simultaneously!</div>
                 </div>
                 
                 <div class="players-status">
@@ -176,6 +176,19 @@
             </div>
             
             <button id="backFromTutorialBtn" class="btn btn-primary">Back to Menu</button>
+        </div>
+    </div>
+
+    <!-- Question Modal -->
+    <div id="questionModal" class="modal hidden">
+        <div class="modal-content question-modal-content">
+            <h2>🤔 Question</h2>
+            <div id="questionText" class="question-text"></div>
+            <div id="questionChoices" class="question-choices"></div>
+            <div id="questionResult" class="question-result hidden">
+                <div id="resultText"></div>
+                <button id="continueBtn" class="btn btn-primary">Continue</button>
+            </div>
         </div>
     </div>
 

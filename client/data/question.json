@@ -1,0 +1,386 @@
+[
+  {
+    "id": 1,
+    "question": "Which city is known as Japan's 'Kitchen' and is famous for its food culture?",
+    "choice": { "a": "Tokyo", "b": "Osaka" },
+    "correct_answer": "b"
+  },
+  {
+    "id": 2,
+    "question": "Which castle is known as the 'White Heron Castle' due to its white exterior?",
+    "choice": { "a": "Himeji Castle", "b": "Osaka Castle" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 3,
+    "question": "Which mountain is Japan's highest peak?",
+    "choice": { "a": "Mount Fuji", "b": "Mount Takao" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 4,
+    "question": "In which city can you find the famous 'Golden Pavilion' (Kinkaku-ji)?",
+    "choice": { "a": "Kyoto", "b": "Nara" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 5,
+    "question": "Which island in Japan is famous for its population of wild deer?",
+    "choice": { "a": "Miyajima", "b": "Yakushima" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 6,
+    "question": "What is the name of Tokyo's famous crossing that is often featured in movies?",
+    "choice": { "a": "Shibuya Crossing", "b": "Akihabara Crossing" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 7,
+    "question": "Which Japanese city was the imperial capital before Tokyo?",
+    "choice": { "a": "Osaka", "b": "Kyoto" },
+    "correct_answer": "b"
+  },
+  {
+    "id": 8,
+    "question": "Which garden in Tokyo is considered one of the most beautiful traditional Japanese gardens?",
+    "choice": { "a": "Rikugien Garden", "b": "Shinjuku Gyoen" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 9,
+    "question": "Which district in Tokyo is known as the center of anime and gaming culture?",
+    "choice": { "a": "Akihabara", "b": "Harajuku" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 10,
+    "question": "Which city is home to the famous Atomic Bomb Dome, a UNESCO World Heritage Site?",
+    "choice": { "a": "Nagasaki", "b": "Hiroshima" },
+    "correct_answer": "b"
+  },
+  {
+    "id": 11,
+    "question": "Which Japanese castle is known as 'Crow Castle' due to its black exterior?",
+    "choice": { "a": "Matsumoto Castle", "b": "Kumamoto Castle" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 12,
+    "question": "Which district in Kyoto is famous for geisha culture?",
+    "choice": { "a": "Gion", "b": "Arashiyama" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 13,
+    "question": "Which Japanese island is known for its tropical climate and beautiful beaches?",
+    "choice": { "a": "Hokkaido", "b": "Okinawa" },
+    "correct_answer": "b"
+  },
+  {
+    "id": 14,
+    "question": "Which mountain range runs through the middle of Honshu island?",
+    "choice": { "a": "Japan Alps", "b": "Mount Aso" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 15,
+    "question": "Which temple in Nara houses the Great Buddha (Daibutsu)?",
+    "choice": { "a": "Todai-ji", "b": "Kofuku-ji" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 16,
+    "question": "Which historic street in Kyoto is lined with traditional wooden machiya houses?",
+    "choice": { "a": "Ninenzaka", "b": "Dotonbori" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 17,
+    "question": "What is the name of Japan's famous bullet train?",
+    "choice": { "a": "Shinkansen", "b": "Yamanote" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 18,
+    "question": "Which Japanese city is known for its snow festival featuring large ice sculptures?",
+    "choice": { "a": "Sapporo", "b": "Sendai" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 19,
+    "question": "Which famous gate (torii) appears to be floating during high tide?",
+    "choice": { "a": "Fushimi Inari Shrine", "b": "Itsukushima Shrine" },
+    "correct_answer": "b"
+  },
+  {
+    "id": 20,
+    "question": "Which Tokyo district is known for its luxury shopping and Meiji Shrine?",
+    "choice": { "a": "Harajuku", "b": "Ginza" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 21,
+    "question": "Which Japanese national park features Hell Valley (Jigokudani) where monkeys bathe in hot springs?",
+    "choice": { "a": "Joshinetsu Kogen National Park", "b": "Fuji-Hakone-Izu National Park" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 22,
+    "question": "Which Tokyo district is known for being the center of youth fashion?",
+    "choice": { "a": "Shibuya", "b": "Asakusa" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 23,
+    "question": "Which Japanese city is known for its elaborate traditional summer festival called Gion Matsuri?",
+    "choice": { "a": "Kyoto", "b": "Tokyo" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 24,
+    "question": "Which UNESCO World Heritage Site in Japan features ancient wooden structures without using nails?",
+    "choice": { "a": "Horyuji Temple", "b": "Nikko Toshogu Shrine" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 25,
+    "question": "Which scenic route in the Japanese Alps is known as the 'Roof of Japan'?",
+    "choice": { "a": "Tateyama Kurobe Alpine Route", "b": "Hakone Ropeway" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 26,
+    "question": "Which Japanese castle is considered the oldest existing castle in Japan?",
+    "choice": { "a": "Inuyama Castle", "b": "Edo Castle" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 27,
+    "question": "Which famous street food market in Kyoto has over 400 years of history?",
+    "choice": { "a": "Tsukiji Market", "b": "Nishiki Market" },
+    "correct_answer": "b"
+  },
+  {
+    "id": 28,
+    "question": "Which island is known as 'Cat Island' due to its large feline population?",
+    "choice": { "a": "Tashirojima", "b": "Rebun Island" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 29,
+    "question": "Which Japanese garden technique involves carefully pruned trees that resemble miniature landscapes?",
+    "choice": { "a": "Ikebana", "b": "Bonsai" },
+    "correct_answer": "b"
+  },
+  {
+    "id": 30,
+    "question": "Which city is home to Japan's most famous geothermal hot springs (onsen)?",
+    "choice": { "a": "Beppu", "b": "Sendai" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 31,
+    "question": "Which Japanese island is known for its ancient cedar forests and loggerhead turtles?",
+    "choice": { "a": "Yakushima", "b": "Hokkaido" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 32,
+    "question": "Which traditional Japanese garden in Kanazawa is considered one of the three most beautiful gardens in Japan?",
+    "choice": { "a": "Kenrokuen", "b": "Kairakuen" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 33,
+    "question": "Which Tokyo district features the famous Senso-ji Temple and Nakamise shopping street?",
+    "choice": { "a": "Asakusa", "b": "Shinjuku" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 34,
+    "question": "Which scenic gorge near Nikko features a famous red bridge?",
+    "choice": { "a": "Dakigaeri Gorge", "b": "Shosenkyo Gorge" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 35,
+    "question": "Which historic village in the Japanese Alps features traditional gassho-zukuri farmhouses?",
+    "choice": { "a": "Shirakawa-go", "b": "Tsumago" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 36,
+    "question": "Which famous shrine in Kyoto has thousands of vermilion torii gates?",
+    "choice": { "a": "Heian Shrine", "b": "Fushimi Inari Shrine" },
+    "correct_answer": "b"
+  },
+  {
+    "id": 37,
+    "question": "Which Japanese city is known for its Peace Memorial Park?",
+    "choice": { "a": "Hiroshima", "b": "Nagoya" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 38,
+    "question": "Which ancient highway connected Edo (Tokyo) and Kyoto during the Edo period?",
+    "choice": { "a": "Tokaido", "b": "Nakasendo" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 39,
+    "question": "Which famous Tokyo tower was inspired by the Eiffel Tower?",
+    "choice": { "a": "Tokyo Skytree", "b": "Tokyo Tower" },
+    "correct_answer": "b"
+  },
+  {
+    "id": 40,
+    "question": "Which scenic peninsula south of Tokyo is known for its hot springs and views of Mount Fuji?",
+    "choice": { "a": "Izu Peninsula", "b": "Noto Peninsula" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 41,
+    "question": "Which district in Tokyo is home to the famous Tsukiji Outer Market?",
+    "choice": { "a": "Chuo", "b": "Minato" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 42,
+    "question": "Which Japanese island is known for its population of wild foxes?",
+    "choice": { "a": "Zao Fox Village", "b": "Miyagi Zao Fox Village" },
+    "correct_answer": "b"
+  },
+  {
+    "id": 43,
+    "question": "Which famous bamboo grove is located in Kyoto?",
+    "choice": { "a": "Arashiyama Bamboo Grove", "b": "Sagano Bamboo Forest" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 44,
+    "question": "Which mountain near Kyoto has a distinctive shape resembling a folding fan?",
+    "choice": { "a": "Mount Hiei", "b": "Mount Daimonji" },
+    "correct_answer": "b"
+  },
+  {
+    "id": 45,
+    "question": "Which famous Japanese garden in Okayama is known as one of the three great gardens of Japan?",
+    "choice": { "a": "Korakuen", "b": "Ritsurin" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 46,
+    "question": "Which region of Japan is famous for its rice terraces (tanada)?",
+    "choice": { "a": "Shikoku", "b": "Niigata" },
+    "correct_answer": "b"
+  },
+  {
+    "id": 47,
+    "question": "Which UNESCO World Heritage Site features five lakes around Mount Fuji?",
+    "choice": { "a": "Fuji Five Lakes", "b": "Hakone" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 48,
+    "question": "Which famous Tokyo museum houses one of the world's largest collections of Japanese art?",
+    "choice": { "a": "Tokyo National Museum", "b": "Mori Art Museum" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 49,
+    "question": "Which castle town in Japan is known for its well-preserved samurai district?",
+    "choice": { "a": "Kanazawa", "b": "Kobe" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 50,
+    "question": "Which Japanese national park is home to Lake Mashu, considered one of the clearest lakes in the world?",
+    "choice": { "a": "Akan-Mashu National Park", "b": "Nikko National Park" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 51,
+    "question": "Which famous bridge in Kyoto is known for its moon-like reflection in the water?",
+    "choice": { "a": "Togetsukyo Bridge", "b": "Nihonbashi Bridge" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 52,
+    "question": "Which Japanese island is known for its unique culture and as the birthplace of karate?",
+    "choice": { "a": "Shikoku", "b": "Okinawa" },
+    "correct_answer": "b"
+  },
+  {
+    "id": 53,
+    "question": "Which scenic route in Hokkaido features beautiful flower fields in summer?",
+    "choice": { "a": "Furano and Biei", "b": "Hakone Ropeway" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 54,
+    "question": "Which famous beach in Japan has nearly perfect white sand and turquoise water?",
+    "choice": { "a": "Shirahama Beach", "b": "Yonaha Maehama Beach" },
+    "correct_answer": "b"
+  },
+  {
+    "id": 55,
+    "question": "Which Japanese city is famous for its hot sand baths where visitors are buried in heated sand?",
+    "choice": { "a": "Ibusuki", "b": "Kusatsu" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 56,
+    "question": "Which shrine in Nara is famous for its thousands of stone lanterns?",
+    "choice": { "a": "Kasuga Taisha", "b": "Toshodaiji" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 57,
+    "question": "Which Japanese island chain is closer to Taiwan than mainland Japan?",
+    "choice": { "a": "Ryukyu Islands", "b": "Izu Islands" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 58,
+    "question": "Which Japanese garden style is characterized by a central pond with islands and bridges?",
+    "choice": { "a": "Karesansui", "b": "Chisen-shuyu" },
+    "correct_answer": "b"
+  },
+  {
+    "id": 59,
+    "question": "Which historical district in Takayama is known for its well-preserved Edo period buildings?",
+    "choice": { "a": "Sanmachi Suji", "b": "Gion" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 60,
+    "question": "Which famous Tokyo entertainment district was historically a marshland?",
+    "choice": { "a": "Roppongi", "b": "Odaiba" },
+    "correct_answer": "b"
+  },
+  {
+    "id": 61,
+    "question": "Which scenic spot in Japan features a large field of blue flowers (nemophila) in spring?",
+    "choice": { "a": "Hitachi Seaside Park", "b": "Ashikaga Flower Park" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 62,
+    "question": "Which Tokyo district is known for its electronics shops and anime culture?",
+    "choice": { "a": "Akihabara", "b": "Ueno" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 63,
+    "question": "Which famous Japanese castle is known for its unique black exterior?",
+    "choice": { "a": "Okayama Castle", "b": "Kumamoto Castle" },
+    "correct_answer": "a"
+  },
+  {
+    "id": 64,
+    "question": "Which traditional Japanese garden in Tokyo belonged to the Tokugawa shogunate?",
+    "choice": { "a": "Hamarikyu Gardens", "b": "Koishikawa Korakuen" },
+    "correct_answer": "a"
+  }
+]

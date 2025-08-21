@@ -35,8 +35,8 @@ export class GameRoom extends Room<GameState> {
     
     // Initialize the game state
     this.state.gameStarted = false;
-    this.state.currentPlayerIndex = 0;
-    this.state.turnTimeLeft = 0;
+    this.state.finishedPlayersCount = 0;
+    this.state.raceCompleted = false;
     
     // Set up message handlers
     this.onMessage("ready", (client: Client) => {
@@ -45,6 +45,10 @@ export class GameRoom extends Room<GameState> {
     
     this.onMessage("roll_dice", (client: Client) => {
       this.handleRollDice(client);
+    });
+
+    this.onMessage("answer_question", (client: Client, message: any) => {
+      this.handleAnswerQuestion(client, message);
     });
     
     this.onMessage("chat", (client: Client, message: any) => {
@@ -66,6 +70,11 @@ export class GameRoom extends Room<GameState> {
     player.character = options.character || "warrior";
     player.position = 0;
     player.isReady = false;
+    player.hasFinished = false;
+    player.finishTime = 0;
+    player.completionDuration = 0;
+    player.formattedTime = "";
+    player.finishPosition = 0;
 
     this.state.players.set(client.sessionId, player);
 
@@ -91,11 +100,6 @@ export class GameRoom extends Room<GameState> {
     if (this.state.gameStarted && this.state.players.size === 0) {
       // All players left, reset game
       this.state.gameStarted = false;
-    } else if (this.state.gameStarted && this.state.players.size > 0) {
-      // Adjust current player index if needed
-      if (this.state.currentPlayerIndex >= this.state.players.size) {
-        this.state.currentPlayerIndex = 0;
-      }
     }
   }
 
@@ -122,30 +126,26 @@ export class GameRoom extends Room<GameState> {
 
   private startGame() {
     this.state.gameStarted = true;
-    this.state.currentPlayerIndex = 0;
-    this.state.turnTimeLeft = 30; // 30 seconds per turn
+    this.state.gameStartTime = Date.now();
+    this.state.finishedPlayersCount = 0;
+    this.state.raceCompleted = false;
     
-    console.log("Game started!");
-    this.broadcast("game_started", { message: "Game has started!" });
-    
-    this.startTurnTimer();
+    console.log("Real-time race started! All players can roll dice simultaneously!");
+    this.broadcast("game_started", { 
+      message: "Real-time race started! Everyone can roll dice now!",
+      gameMode: "realtime"
+    });
   }
 
   private handleRollDice(client: Client) {
-    // Check if it's the player's turn
-    const playerIds = Array.from(this.state.players.keys());
-    const currentPlayerId = playerIds[this.state.currentPlayerIndex];
-    
-    if (client.sessionId !== currentPlayerId) {
-      return; // Not this player's turn
-    }
-
     if (!this.state.gameStarted) {
       return; // Game not started
     }
 
     const player = this.state.players.get(client.sessionId);
-    if (!player) return;
+    if (!player || player.hasFinished) {
+      return; // Player not found or already finished
+    }
 
     // Roll two dice
     const dice1 = Math.floor(Math.random() * 6) + 1;
@@ -163,59 +163,113 @@ export class GameRoom extends Room<GameState> {
       dice1,
       dice2,
       total,
-      newPosition
+      newPosition,
+      position: newPosition // เพิ่มตำแหน่งปัจจุบันสำหรับแสดงคำถาม
     });
 
-    // Check for win condition
-    if (newPosition >= 64) {
-      this.state.winner = client.sessionId;
-      this.state.gameStarted = false;
-      this.broadcast("game_ended", {
-        winner: client.sessionId,
-        winnerName: player.name
-      });
-      return;
+    // Check for completion
+    if (newPosition >= 64 && !player.hasFinished) {
+      this.handlePlayerFinish(client.sessionId, player);
     }
-
-    // Move to next player's turn
-    this.nextTurn();
   }
 
-  private nextTurn() {
-    const playerCount = this.state.players.size;
-    this.state.currentPlayerIndex = (this.state.currentPlayerIndex + 1) % playerCount;
-    this.state.turnTimeLeft = 30;
+  private handlePlayerFinish(playerId: string, player: Player) {
+    // Mark player as finished
+    player.hasFinished = true;
+    player.finishTime = Date.now();
+    player.completionDuration = Math.floor((player.finishTime - this.state.gameStartTime) / 1000);
+    player.formattedTime = this.formatTime(player.completionDuration);
     
-    const playerIds = Array.from(this.state.players.keys());
-    const nextPlayerId = playerIds[this.state.currentPlayerIndex];
+    // Set finish position
+    this.state.finishedPlayersCount++;
+    player.finishPosition = this.state.finishedPlayersCount;
     
-    this.broadcast("next_turn", {
-      currentPlayerId: nextPlayerId,
-      currentPlayerName: this.state.players.get(nextPlayerId)?.name
+    // Set first place winner
+    if (this.state.finishedPlayersCount === 1) {
+      this.state.winner = playerId;
+    }
+    
+    // Broadcast player finish
+    this.broadcast("player_finished", {
+      playerId: playerId,
+      playerName: player.name,
+      finishPosition: player.finishPosition,
+      completionTime: player.formattedTime,
+      allFinishedPlayers: this.getFinishedPlayersRanking()
     });
     
-    this.startTurnTimer();
+    // Check if race should end (all players finished or only one player left)
+    const totalPlayers = this.state.players.size;
+    const activePlayers = totalPlayers - this.state.finishedPlayersCount;
+    
+    if (this.state.finishedPlayersCount >= totalPlayers || activePlayers <= 0) {
+      this.endRace();
+    }
   }
 
-  private startTurnTimer() {
-    // Clear any existing timer
-    if (this.turnTimer) {
-      this.turnTimer.clear();
-      this.turnTimer = null;
-    }
-
-    // Start countdown timer
-    this.turnTimer = this.clock.setInterval(() => {
-      this.state.turnTimeLeft--;
-      
-      if (this.state.turnTimeLeft <= 0) {
-        // Time's up, move to next player
-        if (this.turnTimer) {
-          this.turnTimer.clear();
-          this.turnTimer = null;
-        }
-        this.nextTurn();
+  private getFinishedPlayersRanking() {
+    const finishedPlayers: any[] = [];
+    this.state.players.forEach((player: Player, playerId: string) => {
+      if (player.hasFinished) {
+        finishedPlayers.push({
+          playerId: playerId,
+          playerName: player.name,
+          character: player.character,
+          finishPosition: player.finishPosition,
+          completionTime: player.formattedTime,
+          completionDuration: player.completionDuration,
+          totalQuestions: player.totalQuestions,
+          correctAnswers: player.correctAnswers
+        });
       }
-    }, 1000);
+    });
+    
+    // Sort by finish position
+    return finishedPlayers.sort((a, b) => a.finishPosition - b.finishPosition);
+  }
+
+  private endRace() {
+    this.state.gameStarted = false;
+    this.state.raceCompleted = true;
+    
+    const rankings = this.getFinishedPlayersRanking();
+    
+    this.broadcast("race_ended", {
+      winner: this.state.winner,
+      winnerName: this.state.players.get(this.state.winner)?.name,
+      rankings: rankings,
+      message: "Race completed! Here are the final results:"
+    });
+  }
+
+  private handleAnswerQuestion(client: Client, message: any) {
+    const player = this.state.players.get(client.sessionId);
+    if (!player) return;
+
+    const { questionId, selectedAnswer, correctAnswer } = message;
+    const isCorrect = selectedAnswer === correctAnswer;
+
+    // อัพเดทสถิติผู้เล่น
+    player.totalQuestions++;
+    if (isCorrect) {
+      player.correctAnswers++;
+    }
+
+    // ส่งผลลัพธ์กลับให้ผู้เล่น
+    this.send(client, "question_result", {
+      questionId,
+      isCorrect,
+      correctAnswer,
+      totalQuestions: player.totalQuestions,
+      correctAnswers: player.correctAnswers
+    });
+
+    console.log(`Player ${player.name} answered question ${questionId}: ${isCorrect ? 'Correct' : 'Wrong'}`);
+  }
+
+  private formatTime(seconds: number): string {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
   }
 }

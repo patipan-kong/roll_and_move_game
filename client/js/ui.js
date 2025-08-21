@@ -90,6 +90,11 @@ class UIManager {
         document.getElementById('roomIdInput').addEventListener('input', (e) => {
             this.currentRoomId = e.target.value;
         });
+
+        // Question Modal
+        document.getElementById('continueBtn').addEventListener('click', () => {
+            this.hideQuestion();
+        });
     }
 
     // Screen Management
@@ -220,17 +225,16 @@ class UIManager {
     }
 
     rollDice() {
+        console.log('UI rollDice called');
         const button = document.getElementById('rollDiceBtn');
         button.disabled = true;
         
-        // Check if it's the player's turn
-        if (game.gameState && game.currentPlayer) {
-            const playerIds = Array.from(game.gameState.players.keys());
-            const currentPlayerId = playerIds[game.gameState.currentPlayerIndex];
-            
-            if (currentPlayerId === game.room.sessionId) {
-                game.rollDice();
-            }
+        // In real-time mode, anyone can roll anytime when game is started
+        if (game.gameState && game.gameState.gameStarted) {
+            console.log('Calling game.rollDice()');
+            game.rollDice();
+        } else {
+            console.log('Cannot roll - gameState:', game.gameState, 'gameStarted:', game.gameState?.gameStarted);
         }
         
         // Re-enable button after a delay
@@ -302,24 +306,12 @@ class UIManager {
         // Update player status
         this.updatePlayersStatus(state.players);
         
-        // Update turn timer
-        document.getElementById('turnTimer').textContent = state.turnTimeLeft;
+        // Update game status for real-time mode
+        // No need to track turns or timers in real-time mode
         
-        // Update current player indicator
-        const playerIds = Array.from(state.players.keys());
-        if (playerIds.length > 0) {
-            const currentPlayerId = playerIds[state.currentPlayerIndex];
-            const currentPlayer = state.players.get(currentPlayerId);
-            if (currentPlayer) {
-                document.getElementById('currentPlayerName').textContent = currentPlayer.name;
-            }
-        }
-        
-        // Enable/disable roll dice button
-        const isCurrentPlayer = game.room && 
-                                state.players.size > 0 && 
-                                playerIds[state.currentPlayerIndex] === game.room.sessionId;
-        document.getElementById('rollDiceBtn').disabled = !isCurrentPlayer || !state.gameStarted;
+        // Enable roll dice button for real-time mode (all players can roll anytime)
+        const rollButton = document.getElementById('rollDiceBtn');
+        rollButton.disabled = !state.gameStarted;
     }
 
     updatePlayersStatus(players) {
@@ -343,12 +335,13 @@ class UIManager {
         });
     }
 
-    updateCurrentTurn(playerId, playerName) {
-        document.getElementById('currentPlayerName').textContent = playerName;
+    updateGameState(state) {
+        // Update game UI based on state - now real-time, so everyone can roll
+        const rollButton = document.getElementById('rollDiceBtn');
+        rollButton.disabled = !state.gameStarted;
         
-        // Enable/disable roll button based on turn
-        const isMyTurn = game.room && playerId === game.room.sessionId;
-        document.getElementById('rollDiceBtn').disabled = !isMyTurn;
+        // Update player positions if needed
+        this.updatePlayersList(state.players);
     }
 
     showDiceRoll(dice1, dice2) {
@@ -406,15 +399,57 @@ class UIManager {
         chatContainer.scrollTop = chatContainer.scrollHeight;
     }
 
-    showGameOver(winnerId, winnerName) {
+    showGameOver(winnerId, winnerName, gameDuration, formattedTime) {
         const modal = document.getElementById('gameOverModal');
         const message = document.getElementById('winnerMessage');
         
         const isWinner = game.room && winnerId === game.room.sessionId;
-        message.textContent = isWinner ? 
+        const winMessage = isWinner ? 
             `Congratulations! You won the game!` : 
             `${winnerName} won the game!`;
         
+        if (formattedTime) {
+            message.innerHTML = `
+                ${winMessage}<br><br>
+                <strong>🕒 Game Duration: ${formattedTime}</strong>
+            `;
+        } else {
+            message.textContent = winMessage;
+        }
+        
+        modal.classList.remove('hidden');
+    }
+
+    showRaceResults(rankings) {
+        const modal = document.getElementById('gameOverModal');
+        const message = document.getElementById('winnerMessage');
+        
+        let resultsHTML = '<h3>🏁 Race Results</h3><div class="race-results">';
+        
+        rankings.forEach((player, index) => {
+            const position = index + 1;
+            const medalEmoji = position === 1 ? '🥇' : position === 2 ? '🥈' : position === 3 ? '🥉' : '🏃‍♂️';
+            const isCurrentPlayer = game.room && player.playerId === game.room.sessionId;
+            const highlightClass = isCurrentPlayer ? 'current-player' : '';
+            const accuracy = player.totalQuestions > 0 ? Math.round((player.correctAnswers / player.totalQuestions) * 100) : 0;
+            
+            resultsHTML += `
+                <div class="result-row ${highlightClass}">
+                    <span class="position">${medalEmoji} ${position}</span>
+                    <span class="player-info">
+                        ${game.getCharacterIcon(player.character)} ${player.playerName}<br>
+                        <small>🎯 ${player.correctAnswers}/${player.totalQuestions} (${accuracy}%)</small>
+                    </span>
+                    <span class="completion-time">
+                        ⏰ ${player.completionTime}<br>
+                        <small>${player.completionDuration}s</small>
+                    </span>
+                </div>
+            `;
+        });
+        
+        resultsHTML += '</div>';
+        message.innerHTML = resultsHTML;
         modal.classList.remove('hidden');
     }
 
@@ -447,6 +482,74 @@ class UIManager {
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
+    }
+
+    // Question methods
+    showQuestion(question) {
+        const modal = document.getElementById('questionModal');
+        const questionText = document.getElementById('questionText');
+        const questionChoices = document.getElementById('questionChoices');
+        const questionResult = document.getElementById('questionResult');
+
+        // รีเซ็ต modal
+        questionResult.classList.add('hidden');
+        questionChoices.innerHTML = '';
+
+        // แสดงคำถาม
+        questionText.textContent = question.question;
+
+        // สร้างปุ่มตัวเลือก
+        Object.entries(question.choice).forEach(([key, value]) => {
+            const button = document.createElement('button');
+            button.className = 'choice-btn';
+            button.textContent = `${key.toUpperCase()}. ${value}`;
+            button.onclick = () => this.selectAnswer(question.id, key, button);
+            questionChoices.appendChild(button);
+        });
+
+        modal.classList.remove('hidden');
+    }
+
+    selectAnswer(questionId, selectedAnswer, buttonElement) {
+        // ปิดการใช้งานปุ่มทั้งหมด
+        document.querySelectorAll('.choice-btn').forEach(btn => {
+            btn.disabled = true;
+            btn.style.opacity = '0.6';
+        });
+
+        // เน้นปุ่มที่เลือก
+        buttonElement.style.background = '#e3f2fd';
+        buttonElement.style.borderColor = '#2196f3';
+
+        // ส่งคำตอบไปยังเกม
+        game.answerQuestion(questionId, selectedAnswer);
+    }
+
+    showQuestionResult(result) {
+        const questionResult = document.getElementById('questionResult');
+        const resultText = document.getElementById('resultText');
+
+        const isCorrect = result.isCorrect;
+        questionResult.className = `question-result ${isCorrect ? 'correct' : 'incorrect'}`;
+
+        if (isCorrect) {
+            resultText.innerHTML = `
+                <div>✅ <strong>ถูกต้อง!</strong></div>
+                <div>คะแนน: ${result.correctAnswers}/${result.totalQuestions}</div>
+            `;
+        } else {
+            resultText.innerHTML = `
+                <div>❌ <strong>ผิด!</strong></div>
+                <div>คำตอบที่ถูกต้อง: ${result.correctAnswer.toUpperCase()}</div>
+                <div>คะแนน: ${result.correctAnswers}/${result.totalQuestions}</div>
+            `;
+        }
+
+        questionResult.classList.remove('hidden');
+    }
+
+    hideQuestion() {
+        document.getElementById('questionModal').classList.add('hidden');
     }
 }
 

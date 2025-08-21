@@ -9,7 +9,7 @@ A multiplayer board game built with Colyseus and HTML5
   - Host or Join existing games
 - **Interactive Tutorial**: Built-in "How to Play" guide
 - **Real-time Gameplay**: 
-  - Turn-based dice rolling with two dice
+  - Real time dice rolling with two dice
   - 64-square spiral board layout
   - Race to the center to win!
 - **Responsive Design**: Works on desktop and mobile devices

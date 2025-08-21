@@ -6,8 +6,20 @@ class Game {
         this.currentPlayer = null;
         this.gameState = null;
         this.isConnected = false;
+        this.questions = []; // เก็บข้อมูลคำถาม
         
+        this.loadQuestions();
         this.setupConnectionListeners();
+    }
+
+    async loadQuestions() {
+        try {
+            const response = await fetch('./data/question.json');
+            this.questions = await response.json();
+            console.log(`Loaded ${this.questions.length} questions`);
+        } catch (error) {
+            console.error('Failed to load questions:', error);
+        }
     }
 
     setupConnectionListeners() {
@@ -107,12 +119,16 @@ class Game {
             this.handleDiceRoll(message);
         });
 
-        this.room.onMessage('next_turn', (message) => {
-            this.handleNextTurn(message);
+        this.room.onMessage('player_finished', (message) => {
+            this.handlePlayerFinished(message);
         });
 
-        this.room.onMessage('game_ended', (message) => {
-            this.handleGameEnd(message);
+        this.room.onMessage('race_ended', (message) => {
+            this.handleRaceEnd(message);
+        });
+
+        this.room.onMessage('question_result', (message) => {
+            this.handleQuestionResult(message);
         });
 
         this.room.onMessage('chat', (message) => {
@@ -183,19 +199,41 @@ class Game {
                 UI.addLogEntry(`${message.playerName} reached the finish!`, 'win');
             } else {
                 UI.addLogEntry(`${message.playerName} moved to square ${message.newPosition}`, 'move');
+                
+                // แสดงคำถามถ้าเป็นผู้เล่นปัจจุบันและตำแหน่งใหม่ 1-64
+                if (message.playerId === this.room.sessionId && message.newPosition > 0 && message.newPosition <= 64) {
+                    this.showQuestion(message.newPosition);
+                }
             }
         }, 1000);
     }
 
-    handleNextTurn(message) {
-        console.log('Next turn:', message);
-        UI.updateCurrentTurn(message.currentPlayerId, message.currentPlayerName);
-        UI.addLogEntry(`It's ${message.currentPlayerName}'s turn`, 'turn');
+    handlePlayerFinished(message) {
+        console.log('Player finished:', message);
+        UI.addLogEntry(
+            `${message.playerName} finished in ${message.finishPosition}${this.getOrdinalSuffix(message.finishPosition)} place! Time: ${message.completionTime}`,
+            'win'
+        );
     }
 
-    handleGameEnd(message) {
-        console.log('Game ended:', message);
-        UI.showGameOver(message.winner, message.winnerName);
+    handleRaceEnd(message) {
+        console.log('Race ended:', message);
+        UI.showRaceResults(message.rankings);
+    }
+
+    getOrdinalSuffix(num) {
+        const j = num % 10;
+        const k = num % 100;
+        if (j == 1 && k != 11) {
+            return "st";
+        }
+        if (j == 2 && k != 12) {
+            return "nd";
+        }
+        if (j == 3 && k != 13) {
+            return "rd";
+        }
+        return "th";
     }
 
     handleChatMessage(message) {
@@ -204,8 +242,12 @@ class Game {
 
     // Game actions
     rollDice() {
+        console.log('rollDice called, room:', this.room, 'gameState:', this.gameState);
         if (this.room && this.gameState && this.gameState.gameStarted) {
+            console.log('Sending roll_dice message to server');
             this.room.send('roll_dice');
+        } else {
+            console.log('Cannot roll dice - room:', !!this.room, 'gameState:', !!this.gameState, 'gameStarted:', this.gameState?.gameStarted);
         }
     }
 
@@ -259,6 +301,33 @@ class Game {
             archer: 'Archer'
         };
         return names[character] || 'Player';
+    }
+
+    // Question handling methods
+    showQuestion(position) {
+        const question = this.questions.find(q => q.id === position);
+        if (!question) {
+            console.log(`No question found for position ${position}`);
+            return;
+        }
+
+        UI.showQuestion(question);
+    }
+
+    answerQuestion(questionId, selectedAnswer) {
+        const question = this.questions.find(q => q.id === questionId);
+        if (!question) return;
+
+        // ส่งคำตอบไปยังเซิร์ฟเวอร์
+        this.room.send('answer_question', {
+            questionId,
+            selectedAnswer,
+            correctAnswer: question.correct_answer
+        });
+    }
+
+    handleQuestionResult(message) {
+        UI.showQuestionResult(message);
     }
 }
 
